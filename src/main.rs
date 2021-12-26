@@ -9,6 +9,8 @@ use rppal::{
 };
 use std::sync::{Arc, Mutex};
 
+const PWM_FREQUENCY: f64 = 30_000.0;
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let gpio = Gpio::new()?;
 
@@ -19,7 +21,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let out2_clone1 = out2.clone();
     let out2_clone2 = out2.clone();
 
-    let pwm = Pwm::with_frequency(Channel::Pwm0, 1000.0, 0.0, Polarity::Normal, true)?;
+    let pwm = Pwm::with_frequency(Channel::Pwm0, PWM_FREQUENCY, 0.0, Polarity::Normal, true)?;
     let pwm = Arc::new(Mutex::new(pwm));
     let pwm_clone = pwm.clone();
 
